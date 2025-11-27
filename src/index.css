@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+      font-family: 'Avenir', 'Inter', system-ui, sans-serif;
+    color: #1F2937;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Glamour Absolute', Georgia, serif;
+      font-weight: 400;
+    }
+}

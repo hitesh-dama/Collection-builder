@@ -1,0 +1,122 @@
+
+Running 7 tests using 4 workers
+
+[2m[WebServer] [22mBrowserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+  ✓  1 [chromium] › collection-wizard.spec.ts:128:3 › Collection Builder with Inline Editing › Add custom donation panel (15.6s)
+  ✘  2 [chromium] › collection-wizard.spec.ts:62:3 › Collection Builder with Inline Editing › Complete wizard flow: Input → Loading → Result (19.4s)
+  ✘  3 [chromium] › collection-wizard.spec.ts:9:3 › Collection Builder with Inline Editing › Landing page to template selection to wizard flow (20.1s)
+  ✓  4 [chromium] › collection-wizard.spec.ts:147:3 › Collection Builder with Inline Editing › Data persistence: localStorage saves collection (9.5s)
+  ✘  5 [chromium] › collection-wizard.spec.ts:98:3 › Collection Builder with Inline Editing › Inline editing: Title with checkmark and X (30.0s)
+  ✓  6 [chromium] › collection-wizard.spec.ts:169:3 › Collection Builder with Inline Editing › Previous button returns to input (10.7s)
+  ✘  7 [chromium] › collection-wizard.spec.ts:188:3 › Collection Builder with Inline Editing › Suggestion chips work correctly (16.7s)
+
+
+  1) [chromium] › collection-wizard.spec.ts:9:3 › Collection Builder with Inline Editing › Landing page to template selection to wizard flow 
+
+    Error: [31mTimed out 3000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+
+    Locator: getByRole('heading', { name: /wedding gift/i })
+    Expected: visible
+    Received: hidden
+    Call log:
+      [2m- expect.toBeVisible with timeout 3000ms[22m
+    [2m  - waiting for getByRole('heading', { name: /wedding gift/i })[22m
+
+
+      50 |     await expect(
+      51 |       page.getByRole('heading', { name: /wedding gift/i })
+    > 52 |     ).toBeVisible({ timeout: 3000 });
+         |       ^
+      53 |
+      54 |     // Check for buttons in result
+      55 |     await expect(page.getByRole('button', { name: /preview/i })).toBeVisible();
+
+        at C:\Users\Asus\Downloads\Final Code\project\src\e2e\collection-wizard.spec.ts:52:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\collection-wizard-Collection-Builder-with-Inli-53dce-nding-page-to-template-selection-to-wizard-flow-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › collection-wizard.spec.ts:62:3 › Collection Builder with Inline Editing › Complete wizard flow: Input → Loading → Result 
+
+    Error: [31mTimed out 3000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+
+    Locator: getByRole('heading', { name: /wedding gift/i })
+    Expected: visible
+    Received: hidden
+    Call log:
+      [2m- expect.toBeVisible with timeout 3000ms[22m
+    [2m  - waiting for getByRole('heading', { name: /wedding gift/i })[22m
+
+
+      86 |     await expect(
+      87 |       page.getByRole('heading', { name: /wedding gift/i })
+    > 88 |     ).toBeVisible({ timeout: 3000 });
+         |       ^
+      89 |
+      90 |     // Check for buttons in result
+      91 |     await expect(page.getByRole('button', { name: /preview/i })).toBeVisible();
+
+        at C:\Users\Asus\Downloads\Final Code\project\src\e2e\collection-wizard.spec.ts:88:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\collection-wizard-Collection-Builder-with-Inli-a7b6a-g-Complete-wizard-flow-Input-→-Loading-→-Result-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › collection-wizard.spec.ts:98:3 › Collection Builder with Inline Editing › Inline editing: Title with checkmark and X 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      [2m- waiting for locator('button[aria-label="Save"]').first()[22m
+
+
+      120 |
+      121 |     // Find the checkmark button (should have Check icon)
+    > 122 |     await page.locator('button[aria-label="Save"]').first().click();
+          |                                                             ^
+      123 |
+      124 |     // Title should update
+      125 |     await expect(page.locator('h1').filter({ hasText: /custom wedding collection/i })).toBeVisible();
+
+        at C:\Users\Asus\Downloads\Final Code\project\src\e2e\collection-wizard.spec.ts:122:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\collection-wizard-Collection-Builder-with-Inline-Editing-Inline-editing-Title-with-checkmark-and-X-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › collection-wizard.spec.ts:188:3 › Collection Builder with Inline Editing › Suggestion chips work correctly 
+
+    Error: [31mTimed out 5000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+
+    Locator: getByRole('heading', { name: /baby shower/i })
+    Expected: visible
+    Received: hidden
+    Call log:
+      [2m- expect.toBeVisible with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: /baby shower/i })[22m
+
+
+      207 |     // Result should eventually appear
+      208 |     await page.waitForTimeout(6000);
+    > 209 |     await expect(page.getByRole('heading', { name: /baby shower/i })).toBeVisible();
+          |                                                                       ^
+      210 |   });
+      211 | });
+      212 |
+
+        at C:\Users\Asus\Downloads\Final Code\project\src\e2e\collection-wizard.spec.ts:209:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\collection-wizard-Collection-Builder-with-Inline-Editing-Suggestion-chips-work-correctly-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › collection-wizard.spec.ts:9:3 › Collection Builder with Inline Editing › Landing page to template selection to wizard flow 
+    [chromium] › collection-wizard.spec.ts:62:3 › Collection Builder with Inline Editing › Complete wizard flow: Input → Loading → Result 
+    [chromium] › collection-wizard.spec.ts:98:3 › Collection Builder with Inline Editing › Inline editing: Title with checkmark and X 
+    [chromium] › collection-wizard.spec.ts:188:3 › Collection Builder with Inline Editing › Suggestion chips work correctly 
+  3 passed (44.0s)

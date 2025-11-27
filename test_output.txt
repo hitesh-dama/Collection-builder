@@ -1,0 +1,13 @@
+[1A[2KError: No tests found
+
+
+
+
+
+
+
+[1A[2K
+To open last HTML report run:
+
+  npx playwright show-report
+
