@@ -208,4 +208,34 @@ test.describe('Collection Builder with Inline Editing', () => {
     await page.waitForTimeout(6000);
     await expect(page.locator('h1').filter({ hasText: /baby shower/i })).toBeVisible();
   });
+
+  test('Error handling: Search for "error" shows error message and allows retry', async ({ page }) => {
+    await page.goto('/');
+
+    // Navigate through landing → template selection → wizard
+    await page.getByRole('button', { name: /Group Gifts/i }).click();
+    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+
+    // Enter "error" prompt
+    const promptInput = page.getByPlaceholder(/I'm collecting a group gift for/i);
+    await promptInput.fill('error');
+    await promptInput.press('Enter');
+
+    // Wait for error message
+    await expect(page.getByText(/Something went wrong. Please try again./i)).toBeVisible({ timeout: 10000 });
+
+    // Verify Retry button
+    const retryButton = page.getByRole('button', { name: /Retry/i });
+    await expect(retryButton).toBeVisible();
+
+    // Verify input still has "error"
+    await expect(promptInput).toHaveValue('error');
+
+    // Click retry
+    await retryButton.click();
+
+    // Should show loading state (error message disappears)
+    await expect(page.getByText(/Something went wrong. Please try again./i)).not.toBeVisible();
+    await expect(page.getByText(/here is an example/i)).toBeVisible();
+  });
 });

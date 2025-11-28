@@ -20,12 +20,14 @@ function CollectionWizard() {
   const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>('idle');
   const [templates, setTemplates] = useState<Template[]>([]);
   const [userPrompt, setUserPrompt] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const { mutate: generateCollection } = useGenerateCollection();
 
   const handleInputSubmit = (prompt: string, category?: string) => {
     setUserPrompt(prompt);
     setLoadingPhase('cube');
+    setError(null);
 
     generateCollection(
       { userPrompt: prompt, category },
@@ -40,26 +42,39 @@ function CollectionWizard() {
             }, 1500);
           }, 1500);
         },
+        onError: () => {
+          setLoadingPhase('idle');
+          setError('Something went wrong. Please try again.');
+        },
       }
     );
+  };
+
+  const handleRetry = () => {
+    if (userPrompt) {
+      handleInputSubmit(userPrompt);
+    }
   };
 
   const handleClearPrompt = () => {
     setLoadingPhase('idle');
     setTemplates([]);
     setUserPrompt('');
+    setError(null);
   };
 
   const handleBack = () => {
     setLoadingPhase('idle');
     setTemplates([]);
     setUserPrompt('');
+    setError(null);
   };
 
   const handleSelectCollectionType = (typeId: string) => {
     if (typeId === 'group-gifts') {
       setCurrentScreen('template-selection');
       setLoadingPhase('idle');
+      setError(null);
     }
   };
 
@@ -68,6 +83,7 @@ function CollectionWizard() {
     setLoadingPhase('idle');
     setTemplates([]);
     setUserPrompt('');
+    setError(null);
   };
 
   const handleBackToTemplateSelection = () => {
@@ -75,6 +91,7 @@ function CollectionWizard() {
     setLoadingPhase('idle');
     setTemplates([]);
     setUserPrompt('');
+    setError(null);
   };
 
   const defaultTemplateFields = {
@@ -86,6 +103,7 @@ function CollectionWizard() {
   const handleSelectAICreator = () => {
     setCurrentScreen('wizard');
     setLoadingPhase('idle');
+    setError(null);
     setTemplates([
       {
         id: 'ai-generated',
@@ -100,6 +118,7 @@ function CollectionWizard() {
   const handleSelectScratch = () => {
     setCurrentScreen('wizard');
     setLoadingPhase('idle');
+    setError(null);
     setTemplates([
       {
         id: 'scratch',
@@ -179,6 +198,7 @@ function CollectionWizard() {
     }
     setCurrentScreen('wizard');
     setLoadingPhase('idle');
+    setError(null);
   };
 
   if (currentScreen === 'landing') {
@@ -258,6 +278,8 @@ function CollectionWizard() {
               onSubmit={handleInputSubmit}
               isLoading={false}
               initialPrompt={userPrompt}
+              error={error}
+              onRetry={handleRetry}
             />
           )}
           {loadingPhase === 'cube' && (

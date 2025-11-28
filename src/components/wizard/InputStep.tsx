@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { AlertCircle } from 'lucide-react';
 
 interface InputStepProps {
   onSubmit: (prompt: string, category?: string) => void;
   isLoading?: boolean;
   initialPrompt?: string;
+  error?: string | null;
+  onRetry?: () => void;
 }
 
 const suggestions = [
@@ -18,6 +21,8 @@ export const InputStep: React.FC<InputStepProps> = ({
   onSubmit,
   isLoading,
   initialPrompt = '',
+  error,
+  onRetry,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -48,9 +53,29 @@ export const InputStep: React.FC<InputStepProps> = ({
         <p className="text-lg text-cheddar-gray-600 mb-8">
           Tell us about the group gift you're collecting for:
         </p>
+
+        {error && (
+          <div className="mb-6 mx-auto max-w-lg p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between animate-fade-in">
+            <div className="flex items-center gap-2 text-red-700">
+              <AlertCircle className="w-5 h-5" />
+              <span className="text-sm font-medium">{error}</span>
+            </div>
+            {onRetry && (
+              <button
+                type="button"
+                onClick={onRetry}
+                className="px-3 py-1.5 bg-white border border-red-200 text-red-700 text-sm font-medium rounded hover:bg-red-50 transition-colors"
+              >
+                Retry
+              </button>
+            )}
+          </div>
+        )}
+
         <Formik
           initialValues={{ prompt: initialPrompt }}
           onSubmit={handleSubmit}
+          enableReinitialize
         >
           {({ setFieldValue, values }) => (
             <Form className="mb-8">
@@ -59,7 +84,11 @@ export const InputStep: React.FC<InputStepProps> = ({
                 name="prompt"
                 type="text"
                 placeholder="I'm collecting a group gift for..."
-                className="w-full px-6 py-4 text-base text-cheddar-gray-900 border border-cheddar-gray-300 rounded-lg focus:outline-none focus:border-cheddar-orange focus:ring-1 focus:ring-cheddar-orange transition-colors"
+                className={`w-full px-6 py-4 text-base text-cheddar-gray-900 border rounded-lg focus:outline-none focus:ring-1 transition-colors ${
+                  error
+                    ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+                    : 'border-cheddar-gray-300 focus:border-cheddar-orange focus:ring-cheddar-orange'
+                }`}
                 disabled={isLoading}
               />
               <button type="submit" className="hidden" />
