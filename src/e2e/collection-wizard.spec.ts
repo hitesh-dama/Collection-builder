@@ -24,15 +24,21 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Verify template selection options
     await expect(page.getByText(/Create from scratch/i).first()).toBeVisible();
-    await expect(page.getByText(/Use AI to create/i)).toBeVisible();
+    await expect(page.getByText(/Get Recommendations/i).first()).toBeVisible();
     await expect(page.getByText(/Ready to use templates/i)).toBeVisible();
 
-    // Click "Try AI Creator" button
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    // Click "Get Recommendations" button
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+
+    // Verify navigation to wizard
+    await expect(page).toHaveURL(/.*wizard/);
+
+    // Verify navigation to wizard
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Step 3: Input screen appears
     await expect(
-      page.getByRole('heading', { name: /Hi Molly/i })
+      page.getByRole('heading', { name: /Welcome! Let's get your collection started./i })
     ).toBeVisible();
 
     // Enter prompt
@@ -64,11 +70,12 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Step 1: Input screen
     await expect(
-      page.getByRole('heading', { name: /Hi Molly/i })
+      page.getByRole('heading', { name: /Welcome! Let's get your collection started./i })
     ).toBeVisible();
 
     // Enter prompt
@@ -100,7 +107,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Quick path to result using Christmas chip
     await page.getByRole('button', { name: /christmas/i }).click();
@@ -119,7 +127,7 @@ test.describe('Collection Builder with Inline Editing', () => {
     await titleInput.fill('Custom Wedding Collection');
 
     // Find the checkmark button (should have Check icon)
-    await page.locator('button[aria-label="Save"]').first().click();
+    await page.locator('button[aria-label="Save collection title"]').first().click();
 
     // Title should update
     await expect(page.locator('h1').filter({ hasText: /custom wedding collection/i })).toBeVisible();
@@ -130,7 +138,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Use Christmas chip for quick result
     await page.getByRole('button', { name: /christmas/i }).click();
@@ -149,7 +158,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Generate collection
     await page.getByRole('button', { name: /retirement/i }).click();
@@ -171,7 +181,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Generate using chip
     await page.getByRole('button', { name: /staff giving/i }).click();
@@ -181,7 +192,7 @@ test.describe('Collection Builder with Inline Editing', () => {
     await page.getByRole('button', { name: /previous/i }).click();
 
     // Should be back at input screen
-    await expect(page.getByRole('heading', { name: /Hi Molly/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Welcome! Let's get your collection started./i })).toBeVisible();
     await expect(page.getByPlaceholder(/I'm collecting a group gift for/i)).toBeVisible();
   });
 
@@ -190,7 +201,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Verify all suggestion chips are visible
     await expect(page.getByRole('button', { name: /christmas/i })).toBeVisible();
@@ -214,7 +226,8 @@ test.describe('Collection Builder with Inline Editing', () => {
 
     // Navigate through landing → template selection → wizard
     await page.getByRole('button', { name: /Group Gifts/i }).click();
-    await page.getByRole('button', { name: /Try AI Creator/i }).click();
+    await page.getByRole('button', { name: /Get Recommendations/i }).click();
+    await expect(page).toHaveURL(/.*wizard/);
 
     // Enter "error" prompt
     const promptInput = page.getByPlaceholder(/I'm collecting a group gift for/i);

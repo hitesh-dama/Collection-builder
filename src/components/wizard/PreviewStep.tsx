@@ -3,15 +3,11 @@ import { Template } from '../../types';
 import { X, Check, Plus } from 'lucide-react';
 import { DonationPanel as DonationPanelComponent } from '../DonationPanel';
 import { storage, type DonationPanel as DonationPanelType } from '../../lib/storage';
+import { useWizard } from '../../context/WizardContext';
 
-interface PreviewStepProps {
-  templates: Template[];
-  userPrompt: string;
-  onClearPrompt: () => void;
-}
+export const PreviewStep: React.FC = () => {
+  const { templates, userPrompt, handleClearPrompt } = useWizard();
 
-export const PreviewStep: React.FC<PreviewStepProps> = (props) => {
-  const { templates, userPrompt, onClearPrompt } = props;
   const defaultTemplate: Template = {
     id: '',
     title: '',
@@ -63,7 +59,7 @@ export const PreviewStep: React.FC<PreviewStepProps> = (props) => {
         <h2 className="text-2xl font-bold text-cheddar-gray-900 mb-4">No template found</h2>
         <p className="text-base text-cheddar-gray-700 mb-8">Please go back and select a template or try again.</p>
         <button
-          onClick={onClearPrompt}
+          onClick={handleClearPrompt}
           className="px-6 py-2 bg-cheddar-orange hover:bg-cheddar-orange-hover text-white rounded-lg transition-colors font-medium"
         >
           Back
@@ -139,9 +135,9 @@ export const PreviewStep: React.FC<PreviewStepProps> = (props) => {
         <div className="relative bg-white border border-cheddar-gray-300 rounded-lg px-6 py-3 shadow-sm">
           <span className="text-sm text-cheddar-gray-700">{userPrompt}</span>
           <button
-            onClick={onClearPrompt}
+            onClick={handleClearPrompt}
             className="absolute -right-2 -top-2 w-6 h-6 bg-cheddar-gray-700 hover:bg-cheddar-gray-900 text-white rounded-full flex items-center justify-center transition-colors"
-            aria-label="Clear prompt"
+            aria-label="Clear description"
           >
             <X className="w-4 h-4" />
           </button>
@@ -159,7 +155,7 @@ export const PreviewStep: React.FC<PreviewStepProps> = (props) => {
           <picture>
             <img
               src="https://picsum.photos/seed/wedding/800/600"
-              alt="Wedding"
+              alt="Collection preview image: wedding theme"
               className="w-full h-full object-cover"
             />
           </picture>
@@ -175,26 +171,27 @@ export const PreviewStep: React.FC<PreviewStepProps> = (props) => {
                   onChange={(e) => setTitle(e.target.value)}
                   className="flex-1 text-3xl font-serif px-3 py-2 border border-cheddar-gray-300 rounded focus:outline-none focus:border-cheddar-orange"
                   autoFocus
+                  aria-label="Edit collection title"
                 />
                 <button
                   onClick={handleSaveTitle}
                   className="p-2 text-green-600 hover:bg-green-50 rounded transition-colors"
-                  aria-label="Save"
+                  aria-label="Save collection title"
                 >
-                  <Check className="w-6 h-6" />
+                  <Check className="w-5 h-5" />
                 </button>
                 <button
                   onClick={handleCancelTitle}
                   className="p-2 text-cheddar-gray-600 hover:bg-cheddar-gray-100 rounded transition-colors"
+                  aria-label="Cancel editing title"
                 >
                   <X className="w-6 h-6" />
                 </button>
               </div>
             ) : (
               <button
-                type="button"
                 onClick={() => setIsEditingTitle(true)}
-                className="text-3xl font-serif text-cheddar-gray-900 cursor-pointer hover:text-cheddar-orange transition-colors bg-transparent border-none p-0 text-left"
+                className="text-3xl font-serif text-cheddar-gray-900 hover:text-cheddar-orange transition-colors text-left"
                 aria-label="Edit title"
               >
                 {title}

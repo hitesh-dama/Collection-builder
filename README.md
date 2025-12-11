@@ -1,47 +1,65 @@
-# AI-Assisted Collection Builder
 
-A production-quality feature slice of an AI-powered collection creation flow, built with React and TypeScript. This project demonstrates the implementation of a complex wizard UI, simulated AI integration, and responsive design patterns.
+
+# Collection Builder
+
+Collection Builder is a modern, production-quality web application for building and managing group gifting collections. Built with React and TypeScript, it features a robust wizard UI, responsive design, accessibility, and a maintainable, scalable codebase.
+
+
 
 ## 🚀 Features
 
-- **AI-Powered Wizard**: Conversational interface to generate collection templates based on user intent.
-- **Real-time Preview**: Instant feedback with loading states (Cube -> Skeleton -> Result).
-- **Responsive Design**: Pixel-perfect implementation of Figma designs, fully responsive from mobile to desktop.
-- **Accessibility**: Keyboard navigation, focus management, and semantic HTML.
-- **Mock AI API**: Simulated backend with realistic latency and error handling.
+- **Wizard Flow**: Step-by-step interface to create and customize collection templates.
+- **Real-time Preview**: Instant feedback with loading states (Cube → Skeleton → Result).
+- **Responsive Design**: Fully responsive from mobile to desktop.
+- **Accessibility**: Keyboard navigation, focus management, semantic HTML, and ARIA best practices.
+- **Mock API**: Simulated backend for local development and testing.
+- **Centralized State & Constants**: All static data and templates are managed in `src/constants/templates.ts` for maintainability.
+
+
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite
 - **Styling**: Tailwind CSS 3
-- **State Management**: React Query (Server state), React Context/Hooks (Local state)
-- **Testing**: Vitest (Unit), Playwright (E2E)
+- **State Management**: React Query (server state), React Context/Hooks (local state)
+- **Testing**: Vitest (unit), Playwright (E2E)
 - **Icons**: Lucide React
 
-## 🏗️ Architecture & Tradeoffs
 
-This project was built to balance speed, maintainability, and the specific constraints of a "Weekend Project".
 
-### 1. Routing Strategy
-**Decision**: Used state-based routing (`useState`) for the wizard flow instead of a full router like React Router 7.
-**Reasoning**: For a single-feature slice (the wizard), introducing a full client-side router adds unnecessary complexity. State-based routing allows for easier transition management and state persistence within the wizard context without the overhead of URL synchronization for every minor step.
+## 🏗️ Architecture & Best Practices
 
-### 2. Rendering Approach
-**Decision**: Client-Side Rendering (SPA) with Vite.
-**Reasoning**: While SSR (Server-Side Rendering) improves initial load for content-heavy sites, this is a highly interactive, client-heavy application. The complexity of setting up SSR with hydration for this specific scope outweighed the benefits, especially given the "local development only" constraint.
+- **Routing**: Uses React Router for scalable, URL-synced navigation.
+- **Rendering**: Client-side rendering (SPA) with Vite for fast development and production builds.
+- **Component Design**: Modular, reusable, and accessible components with clear separation of concerns.
+- **API Layer**: Mock API for local development and testing, simulating real-world latency and error scenarios.
+- **Constants & Data**: All static templates and defaults are managed in `src/constants/templates.ts`.
+- **Accessibility**: All interactive elements use semantic HTML and ARIA attributes for screen reader support.
+## 📁 Project Structure
 
-### 3. Library Versions
-**Decision**: React 18 and Tailwind 3.
-**Reasoning**: React 19 and Tailwind 4 are currently in beta/release candidate stages. To ensure stability and compatibility with the ecosystem (specifically `react-query` and IDE tooling), I opted for the stable, production-ready versions of these libraries.
+```
+src/
+	components/         # Reusable UI components
+	constants/          # Centralized static data and templates
+	api/                # Mock API and data fetching logic
+	hooks/              # Custom React hooks
+	lib/                # Utilities and storage logic
+	types/              # TypeScript types and interfaces
+	...
+```
 
-### 4. AI Integration
-**Decision**: Local Mock Server.
-**Reasoning**: To ensure deterministic testing and offline development, the AI API is simulated locally. It mimics real-world conditions like network latency (1.5s - 2.5s delay) and error scenarios (e.g., triggering 500 errors with specific keywords).
+## 🤝 Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements, bug fixes, or new features. All code should follow the existing style and best practices.
+
+
 
 ## 🚦 Getting Started
 
+
 ### Prerequisites
 - Node.js 18+ (Tested on Node 22.x)
+
 
 ### Installation
 
@@ -49,15 +67,18 @@ This project was built to balance speed, maintainability, and the specific const
 npm install
 ```
 
+
 ### Development
 
-Start the development server (Frontend + Mock API):
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
+
 ### Testing
+
 
 Run unit tests:
 ```bash
@@ -69,6 +90,7 @@ Run E2E tests:
 npm run test
 ```
 
+
 ### Production Build
 
 ```bash
@@ -76,10 +98,21 @@ npm run build
 npm run preview
 ```
 
+
+
 ## 🧪 Testing Strategy
 
-- **E2E (Playwright)**: Covers the critical "Happy Path" (User types prompt -> Loading -> Results -> Selection).
+- **E2E (Playwright)**: Covers the critical "Happy Path" (user flow from start to finish).
 - **Unit (Vitest)**: Focuses on complex logic and isolated component rendering.
+
+## 🛡️ Maintainability
+
+- All static data and templates are managed in `src/constants/templates.ts`.
+- Components are written to be reusable, accessible, and easy to test.
+- State management uses idiomatic React patterns and React Query for async data.
+- Codebase is linted and follows modern TypeScript and React best practices.
+
+
 
 ## 📝 License
 

@@ -84,13 +84,13 @@ export const mockGenerateCollection = async (
 
   // Error simulation
   if (prompt.includes('error') || prompt.includes('fail')) {
-    throw new Error('AI service temporarily unavailable. Please try again.');
+    throw new Error('Service temporarily unavailable. Please try again.');
   }
 
   let templates: Template[];
   let feedback: string;
 
-  // Determine which templates to return based on prompt
+  // Determine which templates to return based on user input
   if (
     prompt.includes('wedding') ||
     prompt.includes('bride') ||
@@ -101,7 +101,7 @@ export const mockGenerateCollection = async (
     templates = weddingTemplates;
 
     // Personalize feedback if name is mentioned
-    const nameMatch = prompt.match(/for (\w+)/i);
+    const nameMatch = /for (\w+)/i.exec(prompt);
     if (nameMatch) {
       feedback = `Here's a wedding gift collection for ${nameMatch[1]}`;
     } else {

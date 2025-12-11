@@ -88,7 +88,7 @@ export const CustomizeStep: React.FC<CustomizeStepProps> = (props) => {
         </div>
 
         <div>
-          <label className="block text-lg font-semibold text-cheddar-gray-900 mb-3">
+          <label htmlFor="amount-input" className="block text-lg font-semibold text-cheddar-gray-900 mb-3">
             Suggested Donation Amounts
           </label>
           <div className="flex flex-wrap gap-3 mb-4">
@@ -113,6 +113,7 @@ export const CustomizeStep: React.FC<CustomizeStepProps> = (props) => {
 
           <div className="flex gap-3">
             <input
+              id="amount-input"
               type="number"
               value={newAmount}
               onChange={(e) => setNewAmount(e.target.value)}
@@ -126,7 +127,7 @@ export const CustomizeStep: React.FC<CustomizeStepProps> = (props) => {
               onClick={handleAddAmount}
               variant="outline"
               size="md"
-              disabled={!newAmount || parseFloat(newAmount) <= 0}
+              disabled={!newAmount || Number.parseFloat(newAmount) <= 0}
             >
               <Plus className="w-5 h-5" />
             </Button>

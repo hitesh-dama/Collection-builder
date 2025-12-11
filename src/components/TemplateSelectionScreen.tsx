@@ -133,23 +133,23 @@ export const TemplateSelectionScreen: React.FC<TemplateSelectionScreenProps> = (
               </button>
             </div>
 
-            {/* Use AI to create card */}
+            {/* Get Recommendations card */}
             <div className="bg-white border-2 border-cheddar-gray-200 rounded-lg p-6 relative">
               <div className="flex items-start gap-2 mb-2">
                 <h2 className="text-lg font-semibold text-cheddar-gray-900">
-                  Use AI to create
+                  Get Recommendations
                 </h2>
                 <Sparkles className="w-5 h-5 text-yellow-500" />
               </div>
               <p className="text-sm text-cheddar-gray-600 mb-6">
-                Use our super cool new AI builder that can create a layout for you or recommend existing templates
+                Not sure where to start? Get recommended layouts or templates based on your needs.
               </p>
               <button
                 onClick={onSelectAICreator}
                 className="px-6 py-2.5 bg-cheddar-teal text-cheddar-gray-900 rounded-lg hover:bg-cheddar-teal/80 transition-colors font-medium text-sm"
-                aria-label="Try AI Creator"
+                aria-label="Get Recommendations"
               >
-                Try AI Creator
+                Get Recommendations
               </button>
             </div>
           </div>

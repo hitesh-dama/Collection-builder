@@ -106,7 +106,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onSelectType }) => {
       key={type.id}
       onClick={() => handleCardClick(type)}
       disabled={!type.available}
-      role="button"
+      // role="button" removed (button already has implicit role)
       aria-label={type.title}
       className={`
         relative p-6 rounded-lg border-2 text-left transition-all
